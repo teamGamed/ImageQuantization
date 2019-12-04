@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MST.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="ExtractClusters.cs" />
     <Compile Include="MainForm.cs">
