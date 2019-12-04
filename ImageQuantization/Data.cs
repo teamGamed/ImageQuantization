@@ -7,15 +7,21 @@ namespace ImageQuantization
 {
     class Data
     {
-        // have the distinct colors   
-        public static List<RGBPixel> colors;
+        // --- initialize the data structure before store in it --- 
+        // 
+
+
+        // count of distinct colors
+        public static int colorsNum;
+        // distinct colors | the indx will be used as id to the color to the rest in classes 
+        public static RGBPixel[] colors;
         // the graph
-        public static Dictionary<RGBPixel , Dictionary<RGBPixel , double>> distances;
+        public static double[,] distances;
         // MST
-        public static Dictionary< RGBPixel ,List<RGBPixel>> MST;
+        public static List<int>[] MST;
         // the components after Extract the clusters
-        public static List<List<RGBPixel>> comps;
+        public static List<List<int>> comps;
         // the mapping color
-        public static Dictionary<RGBPixel, RGBPixel> colorMap;
+        public static RGBPixel[] colorMap;
     }
 }

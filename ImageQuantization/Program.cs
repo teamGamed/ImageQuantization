@@ -12,6 +12,7 @@ namespace ImageQuantization
         [STAThread]
         static void Main()
         {
+            TestClass.main();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
