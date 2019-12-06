@@ -18,7 +18,7 @@ namespace ImageQuantization
         // the graph
         public static double[,] distances;
         // MST
-        public static List<int>[] MST;
+        public static List<int>[] MSTList;
         // the components after Extract the clusters
         public static List<List<int>> comps;
         // the mapping color

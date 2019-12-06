@@ -12,7 +12,7 @@ namespace ImageQuantization
         private bool[] vis;
         private List<int>[] tree;
         /// <summary>
-        /// get all the edges from Data.MST and sort them descending 
+        /// get all the edges from Data.MSTList and sort them descending 
         /// </summary>
         /// <returns></returns>
         private List<Tuple<double , int , int>> getEdges()
@@ -21,10 +21,10 @@ namespace ImageQuantization
             var vis = new bool[colorsNum, colorsNum];
             for (int i = 0; i < colorsNum; i++)
             {
-                for (int j = 0; j < MST[i].Count; j++)
+                for (int j = 0; j < MSTList[i].Count; j++)
                 {
                     int fColor = i;
-                    int sColor = MST[i][j];
+                    int sColor = MSTList[i][j];
                     if (vis[fColor, sColor])
                         continue;
                     vis[fColor, sColor] = vis[sColor, fColor] = true;
@@ -69,7 +69,7 @@ namespace ImageQuantization
             }
         }
         /// <summary>
-        /// extract the k Clusters from Data.MST and store the new Componentes in Data.comps
+        /// extract the k Clusters from Data.MSTList and store the new Componentes in Data.comps
         /// </summary>
         /// <param name="k"></param>
         public void extractClusters(int k)
