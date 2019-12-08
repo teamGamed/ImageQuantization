@@ -7,18 +7,18 @@ namespace ImageQuantization
 {
     class MST
     {
-        static private Dictionary<int ,int> p = new Dictionary<int, int>();
+        private static Dictionary<int ,int> p = new Dictionary<int, int>();
 
-        static private Dictionary<int, int> rnk = new Dictionary<int, int>();
+        private static Dictionary<int, int> rnk = new Dictionary<int, int>();
         
-        int parent(int node)
+        private static int parent(int node)
         {
             if (node == p[node])
                 return node;
             return p[node] = parent(p[node]);
         }
         // connect 2 nodes
-        void connect(int first, int second)
+        private static void connect(int first, int second)
         {
             int a = parent(first), b = parent(second);
             if (a == b) return;
@@ -33,13 +33,13 @@ namespace ImageQuantization
             }
         }
         // check if the 2 nodes are already in the same component
-        bool isConnected(int first, int second)
+        private static bool isConnected(int first, int second)
         {
             if (parent(first) == parent(second))
                 return true;
             return false;
         }
-        void getMST()
+        private static void getMST()
         {
             int v = Data.colorsNum;
             for (int cur = 0; cur < v; cur++)
