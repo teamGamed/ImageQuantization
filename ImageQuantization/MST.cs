@@ -41,6 +41,11 @@ namespace ImageQuantization
         }
         public static void getMST()
         {
+            Data.MSTList = new List<int>[Data.colorsNum];
+            for(int i = 0; i < Data.colorsNum; i++)
+            {
+                Data.MSTList[i] = new List<int>();
+            }
             int v = Data.colorsNum;
             for (int cur = 0; cur < v; cur++)
             {

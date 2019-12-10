@@ -30,7 +30,6 @@ namespace ImageQuantization
                 }
             }
             return ImageMatrix;
-
         }
     }
 }

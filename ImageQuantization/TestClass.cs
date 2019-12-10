@@ -12,7 +12,6 @@ namespace ImageQuantization
 
         public static void main()
         {
-            ConstructGraph.diffcolors(ImageMatrix);
         }
     }
 }
