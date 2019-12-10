@@ -9,8 +9,9 @@ namespace ImageQuantization
     class ConstructGraph
     {
         //find distnict colors in image matrix
-        public void diffcolors(RGBPixel[,] ImageMatrix)
+        public static void diffcolors(RGBPixel[,] ImageMatrix)
         {
+            colors = new RGBPixel[ImageMatrix.Length];
             int length = ImageMatrix.GetLength(0);
             int wedth = ImageMatrix.GetLength(1);
             int count = 0;
@@ -30,7 +31,7 @@ namespace ImageQuantization
         /// Calculate distance(edge weight) between the RGB values of the 2 vertices using the Euclidean Distance.
         /// </summary>
         /// <returns></returns>
-        public void CalcDist()
+        public static void CalcDist()
         {
             distances = new double[colorsNum, colorsNum];
             for(int i = 0; i < colorsNum; i++)

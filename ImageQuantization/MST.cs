@@ -39,7 +39,7 @@ namespace ImageQuantization
                 return true;
             return false;
         }
-        private static void getMST()
+        public static void getMST()
         {
             int v = Data.colorsNum;
             for (int cur = 0; cur < v; cur++)

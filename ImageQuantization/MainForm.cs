@@ -30,7 +30,12 @@ namespace ImageQuantization
         {
             double sigma = double.Parse(txtGaussSigma.Text);
             int maskSize = (int)nudMaskSize.Value;
-            ImageMatrix = ImageOperations.GaussianFilter1D(ImageMatrix, maskSize, sigma);
+            ConstructGraph.diffcolors(ImageMatrix);
+            ConstructGraph.CalcDist();
+            MST.getMST();
+            ExtractClusters.extractClusters(maskSize);
+            // meya function 
+            //ziko function
             ImageOperations.DisplayImage(ImageMatrix, pictureBox2);
         }
 
