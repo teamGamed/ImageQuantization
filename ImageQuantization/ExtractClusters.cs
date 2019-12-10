@@ -9,13 +9,13 @@ namespace ImageQuantization
     class ExtractClusters
     {
 
-        private bool[] vis;
-        private List<int>[] tree;
+        private static bool[] vis;
+        private static List<int>[] tree;
         /// <summary>
         /// get all the edges from Data.MSTList and sort them descending 
         /// </summary>
         /// <returns></returns>
-        private List<Tuple<double , int , int>> getEdges()
+        private  static List<Tuple<double , int , int>> getEdges()
         {
             var edges = new List<Tuple<double, int, int>>();
             var vis = new bool[colorsNum, colorsNum];
@@ -42,7 +42,7 @@ namespace ImageQuantization
         /// </summary>
         /// <param name="compNum">the number of component in the new tree</param>
         /// <returns></returns>
-        private List<int>[] getupdatedTree(int compNum)
+        private static List<int>[] getupdatedTree(int compNum)
         {
             var edges = getEdges();
             int removedEdges = Math.Min(compNum - 1, edges.Count);
@@ -56,7 +56,7 @@ namespace ImageQuantization
             }
             return updatedTree;
         }
-        private void dfs(int node , ref List<int> curComp)
+        private static void dfs(int node , ref List<int> curComp)
         {
             vis[node] = true;
             curComp.Add(node);
@@ -72,7 +72,7 @@ namespace ImageQuantization
         /// extract the k Clusters from Data.MSTList and store the new Componentes in Data.comps
         /// </summary>
         /// <param name="k"></param>
-        public void extractClusters(int k)
+        public static void extractClusters(int k)
         {
             tree = getupdatedTree(k);
             vis = new bool[colorsNum];

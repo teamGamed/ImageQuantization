@@ -1,41 +1,68 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
+using Microsoft.SqlServer.Server;
 
 namespace ImageQuantization
 {
     class MST
     {
-        // getting MST with total complexity Elog(V^2) = 2 Elog(V) 
+        private static Dictionary<int ,int> p = new Dictionary<int, int>();
 
-        Dictionary<RGBPixel, RGBPixel> p;
-        // check if the 2 nodes are equal
-        bool equals(RGBPixel first, RGBPixel second)
+        private static Dictionary<int, int> rnk = new Dictionary<int, int>();
+        
+        private static int parent(int node)
         {
-            if (first.red == second.red && first.blue == second.blue && first.green == second.green)
-                return true;
-            return false;
-        }
-        RGBPixel parent(RGBPixel node)
-        {
-            if (equals(node, p[node]))
+            if (node == p[node])
                 return node;
             return p[node] = parent(p[node]);
         }
         // connect 2 nodes
-        void connect(RGBPixel first, RGBPixel second)
+        private static void connect(int first, int second)
         {
-            // O(log n) per operation
-            p[parent(first)] = parent(second);
+            int a = parent(first), b = parent(second);
+            if (a == b) return;
+            if (rnk[a] < rnk[b])
+                p[a] = b;
+            else if (rnk[b] < rnk[a])
+                p[b] = a;
+            else
+            {
+                rnk[a]++;
+                p[b] = a;
+            }
         }
         // check if the 2 nodes are already in the same component
-        bool isConnected(RGBPixel first, RGBPixel second)
+        private static bool isConnected(int first, int second)
         {
-            if (equals(parent(first), parent(second)))
+            if (parent(first) == parent(second))
                 return true;
             return false;
         }
-        void getMST()
+        public static void getMST()
         {
-
+            int v = Data.colorsNum;
+            for (int cur = 0; cur < v; cur++)
+            {
+                p[cur] = cur;
+                rnk[cur] = 0;
+            }
+            List < Tuple < double, int, int > > Edge = new List<Tuple<double, int, int>>();
+            for (int i = 0; i < v; i++)
+            {
+                for (int j = 0; j < v; j++)
+                {
+                    Edge.Add(Tuple.Create(Data.distances[i,j], i, j));
+                }
+            }
+            Edge.Sort();
+            foreach(Tuple<double, int, int> edge in Edge)
+            {
+                if (isConnected(edge.Item2, edge.Item3)) continue;
+                connect(edge.Item2, edge.Item3);
+                Data.MSTList[edge.Item2].Add(edge.Item3);
+                Data.MSTList[edge.Item3].Add(edge.Item3);
+            }
         }
     }
 }

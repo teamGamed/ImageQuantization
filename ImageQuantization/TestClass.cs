@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 namespace ImageQuantization
 {
     /// <summary>
@@ -13,6 +12,7 @@ namespace ImageQuantization
 
         public static void main()
         {
+            //ConstructGraph.diffcolors(ImageMatrix);
         }
     }
 }
