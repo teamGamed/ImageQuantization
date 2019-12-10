@@ -36,11 +36,10 @@ namespace ImageQuantization
             MST.getMST();
             ExtractClusters.extractClusters(maskSize);
             ExtractClusters.getClustersColors();
-            //ziko function
-            ImageOperations.DisplayImage(Data.get(ImageMatrix), pictureBox2);
+            ImageOperations.DisplayImage(ColorMapping.NewColors(ImageMatrix), pictureBox2);
             printOutput();
         }
-        private static void printOutput()
+        private void printOutput()
         {
             Console.WriteLine(" Case ::  " + testName);
             double sum = 0;
@@ -51,10 +50,16 @@ namespace ImageQuantization
                     sum += Data.distances[i,Data.MSTList[i][j]];
                 } 
             }
-            Console.WriteLine(" MSTSUM ::  "+Math.Round(sum , 1));
+            MSTSum.Text = Math.Round(sum, 3).ToString();
+            Console.WriteLine(" MSTSUM ::  "+Math.Round(sum , 3));
         }
 
         private void nudMaskSize_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
         {
 
         }

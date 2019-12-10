@@ -8,7 +8,7 @@ namespace ImageQuantization
 {
     class ColorMapping
     {
-        public static void NewColors(RGBPixel[,] ImageMatrix)
+        public static RGBPixel[,] NewColors(RGBPixel[,] ImageMatrix)
         {
             Dictionary<RGBPixel, int> ConvertDict = new Dictionary<RGBPixel, int>();
             for (int x = 0; x < colors.Length; x++)
@@ -27,7 +27,7 @@ namespace ImageQuantization
                     ImageMatrix[i, j].blue = colorMap[id].blue;
                 }
             }
-
+            return ImageMatrix;
         }
     }
 }

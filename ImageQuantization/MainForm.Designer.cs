@@ -44,6 +44,8 @@ namespace ImageQuantization
             this.txtGaussSigma = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.MSTSum = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaskSize)).BeginInit();
@@ -228,11 +230,33 @@ namespace ImageQuantization
             this.panel2.Size = new System.Drawing.Size(421, 371);
             this.panel2.TabIndex = 16;
             // 
+            // MSTSum
+            // 
+            this.MSTSum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MSTSum.Location = new System.Drawing.Point(831, 428);
+            this.MSTSum.Name = "MSTSum";
+            this.MSTSum.Size = new System.Drawing.Size(57, 23);
+            this.MSTSum.TabIndex = 17;
+            this.MSTSum.Text = "1";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(828, 409);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(64, 16);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "MST sum";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 500);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.MSTSum);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtGaussSigma);
@@ -279,6 +303,8 @@ namespace ImageQuantization
         private System.Windows.Forms.TextBox txtGaussSigma;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox MSTSum;
+        private System.Windows.Forms.Label label7;
     }
 }
 
