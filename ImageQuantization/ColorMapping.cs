@@ -8,12 +8,13 @@ namespace ImageQuantization
 {
     class ColorMapping
     {
-        public static void NewColors(RGBPixel[,] ImageMatrix)
+        public static RGBPixel[,] NewColors(RGBPixel[,] ImageMatrix)
         {
-            Dictionary<RGBPixel, int> ConvertDict = new Dictionary<RGBPixel, int>();
+            RGBPixel[,,] RGB = new RGBPixel[255,255,255];
             for (int x = 0; x < colors.Length; x++)
             {
-                ConvertDict.Add(colors[x], x);
+                RGBPixel Clr_map = colorMap[x];
+                RGB[colors[x].red, colors[x].green, colors[x].blue] = Clr_map;
             }         
             int length = ImageMatrix.GetLength(0);
             int width = ImageMatrix.GetLength(1);
@@ -21,12 +22,14 @@ namespace ImageQuantization
             {
                 for (long j = 0; j < width; j++)
                 {
-                    int id = ConvertDict[ImageMatrix[i, j]];
-                    ImageMatrix[i, j].red = colorMap[id].red;
-                    ImageMatrix[i, j].green = colorMap[id].green;
-                    ImageMatrix[i, j].blue = colorMap[id].blue;
+                    RGBPixel new_Clr;
+                    new_Clr= RGB[ImageMatrix[i, j].red, ImageMatrix[i, j].green, ImageMatrix[i, j].blue];
+                    ImageMatrix[i, j].red = new_Clr.red;
+                    ImageMatrix[i, j].green = new_Clr.green;
+                    ImageMatrix[i, j].blue = new_Clr.blue;
                 }
             }
+            return ImageMatrix;
 
         }
     }
