@@ -86,5 +86,31 @@ namespace ImageQuantization
                 comps.Add(curComp);
             }
         }
+        /// <summary>
+        /// Find the representative color of each cluster.
+        /// </summary>
+        public void getClustersColors()
+        {
+            colorMap = new RGBPixel[comps.Count];
+            for (int i=0;i<comps.Count;i++)
+            {
+                int red = 0, blue = 0, green = 0, clusterCount;
+                for (int j=0;j<comps[i].Count;j++)
+                {
+                    red += colors[comps[i][j]].red;
+                    blue += colors[comps[i][j]].blue;
+                    green += colors[comps[i][j]].green;
+                }
+                clusterCount = comps[i].Count;
+                RGBPixel newColor;
+                newColor.red = (byte) (red/clusterCount);
+                newColor.blue = (byte)(blue / clusterCount);
+                newColor.green = (byte)(green / clusterCount);
+                for (int j = 0; j < comps[i].Count; j++)
+                {
+                    colorMap[comps[i][j]] = newColor;
+                }
+            }
+        }
     }
 }
