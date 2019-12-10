@@ -47,6 +47,10 @@ namespace ImageQuantization
             var edges = getEdges();
             int removedEdges = Math.Min(compNum - 1, edges.Count);
             List<int>[] updatedTree = new List<int>[colorsNum];
+            for(int i = 0; i < colorsNum; i++)
+            {
+                updatedTree[i] = new List<int>();
+            }
             for (int i = removedEdges; i < edges.Count; i++)
             {
                 int fColor = edges[i].Item2;
@@ -89,9 +93,9 @@ namespace ImageQuantization
         /// <summary>
         /// Find the representative color of each cluster.
         /// </summary>
-        public void getClustersColors()
+        public static void getClustersColors()
         {
-            colorMap = new RGBPixel[comps.Count];
+            colorMap = new RGBPixel[Data.colorsNum];
             for (int i=0;i<comps.Count;i++)
             {
                 int red = 0, blue = 0, green = 0, clusterCount;

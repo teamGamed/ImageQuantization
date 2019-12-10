@@ -11,7 +11,7 @@ namespace ImageQuantization
         }
 
         RGBPixel[,] ImageMatrix;
-
+        static string  testName;
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -19,6 +19,7 @@ namespace ImageQuantization
             {
                 //Open the browsed image and display it
                 string OpenedFilePath = openFileDialog1.FileName;
+                testName = openFileDialog1.FileName;
                 ImageMatrix = ImageOperations.OpenImage(OpenedFilePath);
                 ImageOperations.DisplayImage(ImageMatrix, pictureBox1);
             }
@@ -34,12 +35,28 @@ namespace ImageQuantization
             ConstructGraph.CalcDist();
             MST.getMST();
             ExtractClusters.extractClusters(maskSize);
-            // meya function 
+            ExtractClusters.getClustersColors();
             //ziko function
-            ImageOperations.DisplayImage(ImageMatrix, pictureBox2);
+            ImageOperations.DisplayImage(Data.get(ImageMatrix), pictureBox2);
+            printOutput();
+        }
+        private static void printOutput()
+        {
+            Console.WriteLine(" Case ::  " + testName);
+            double sum = 0;
+            for(int i = 0; i < Data.MSTList.Length; i++)
+            {
+                for (int j = 0; j < Data.MSTList[i].Count; j++)
+                {
+                    sum += Data.distances[i,Data.MSTList[i][j]];
+                } 
+            }
+            Console.WriteLine(" MSTSUM ::  "+Math.Round(sum , 1));
         }
 
+        private void nudMaskSize_ValueChanged(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

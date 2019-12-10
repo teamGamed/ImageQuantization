@@ -8,8 +8,6 @@ namespace ImageQuantization
     class Data
     {
         // --- initialize the data structure before store in it --- 
-        // 
-
 
         // count of distinct colors
         public static int colorsNum;
@@ -23,5 +21,25 @@ namespace ImageQuantization
         public static List<List<int>> comps;
         // the mapping color
         public static RGBPixel[] colorMap;
+
+        public static RGBPixel[,] get(RGBPixel[,] ImageMatrix)
+        {
+            for(int i = 0; i < ImageMatrix.GetLength(0); i++)
+            {
+                for(int j = 0; j < ImageMatrix.GetLength(1); j++)
+                {
+                    for(int k = 0; k < Data.colorsNum; k++)
+                    {
+                        if(Data.colors[k].blue == ImageMatrix[i, j].blue && Data.colors[k].green == ImageMatrix[i, j].green &&
+                            Data.colors[k].red == ImageMatrix[i, j].red )
+                        {
+                            ImageMatrix[i, j] = Data.colorMap[k];
+                        }
+                    }
+                }
+            }
+            return ImageMatrix;
+        }
+        
     }
 }
