@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using static ImageQuantization.Data;
 
 namespace ImageQuantization
 {
@@ -10,11 +9,11 @@ namespace ImageQuantization
     {
         public static RGBPixel[,] NewColors(RGBPixel[,] ImageMatrix)
         {
-            RGBPixel[,,] RGB = new RGBPixel[255,255,255];
-            for (int x = 0; x < colors.Length; x++)
+            RGBPixel[,,] RGB = new RGBPixel[260,260,260];
+            for (int x = 0; x < Data.colorsNum; x++)
             {
-                RGBPixel Clr_map = colorMap[x];
-                RGB[colors[x].red, colors[x].green, colors[x].blue] = Clr_map;
+                RGBPixel Clr_map = Data.colorMap[x];
+                RGB[Data.colors[x].red, Data.colors[x].green, Data.colors[x].blue] = Clr_map;
             }         
             int length = ImageMatrix.GetLength(0);
             int width = ImageMatrix.GetLength(1);
