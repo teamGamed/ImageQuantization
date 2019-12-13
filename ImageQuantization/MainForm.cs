@@ -37,6 +37,7 @@ namespace ImageQuantization
             ExtractClusters.extractClusters(maskSize);
             ExtractClusters.getClustersColors();
             ImageOperations.DisplayImage(ColorMapping.NewColors(ImageMatrix), pictureBox2);
+            txtDiffColors.Text = Data.colorsNum.ToString();
             printOutput();
         }
         private void printOutput()
