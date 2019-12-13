@@ -31,7 +31,7 @@ namespace ImageQuantization
         {
             double sigma = double.Parse(txtGaussSigma.Text);
             int maskSize = (int)nudMaskSize.Value;
-            ConstructGraph.diffcolors(ImageMatrix);
+            ConstructGraph.Diffcolors(ImageMatrix);
             ConstructGraph.CalcDist();
             MST.getMST();
             ExtractClusters.extractClusters(maskSize);
