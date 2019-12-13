@@ -28,15 +28,16 @@ namespace ImageQuantization
             colorsNum=diffcolors.Count();
         }
         /// <summary>
-        /// Calculate distance(edge weight) between the RGB values of the 2 vertices using the Euclidean Distance.
+        /// Calculate distance(edge weight) between the RGB values of the 2 vertices using the Euclidean Distance, then construct
+        /// the graph using adjacency list.
         /// </summary>
         /// <returns></returns>
         public static void CalcDist()
         {
             distances = new double[colorsNum, colorsNum];
-            for(int i = 0; i < colorsNum; i++)
+            for (int i = 0; i < colorsNum; i++)
             {
-                for(int j = 0; j < colorsNum; j++)
+                for (int j = 0; j < colorsNum; j++)
                 {
                     if (i != j)
                     {
@@ -44,6 +45,18 @@ namespace ImageQuantization
                                                     (colors[j].blue - colors[i].blue) * (colors[j].blue - colors[i].blue) +
                                                     (colors[j].green - colors[i].green) * (colors[j].green - colors[i].green));
                     }
+                }
+            }
+            adj = new List<KeyValuePair<int, double>>[colorsNum];
+            for (int i = 0; i < colorsNum; i++)
+            {
+                adj[i] = new List<KeyValuePair<int, double>>();
+            }
+            for (int i = 0; i < colorsNum; i++)
+            {
+                for (int j = 0; j < colorsNum; j++)
+                {
+                    adj[i].Add(new KeyValuePair<int, double>(j, distances[i, j]));
                 }
             }
         }

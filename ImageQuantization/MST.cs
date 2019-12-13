@@ -2,71 +2,59 @@
 using System.Collections.Generic;
 using System.Windows.Forms.VisualStyles;
 using Microsoft.SqlServer.Server;
+using Priority_Queue;
+using static ImageQuantization.Data;
 
 namespace ImageQuantization
 {
     class MST
     {
-        private static Dictionary<int ,int> p = new Dictionary<int, int>();
-
-        private static Dictionary<int, int> rnk = new Dictionary<int, int>();
-        
-        private static int parent(int node)
-        {
-            if (node == p[node])
-                return node;
-            return p[node] = parent(p[node]);
-        }
-        // connect 2 nodes
-        private static void connect(int first, int second)
-        {
-            int a = parent(first), b = parent(second);
-            if (a == b) return;
-            if (rnk[a] < rnk[b])
-                p[a] = b;
-            else if (rnk[b] < rnk[a])
-                p[b] = a;
-            else
-            {
-                rnk[a]++;
-                p[b] = a;
-            }
-        }
-        // check if the 2 nodes are already in the same component
-        private static bool isConnected(int first, int second)
-        {
-            if (parent(first) == parent(second))
-                return true;
-            return false;
-        }
+        /// <summary>
+        /// Construct MST using prim algorithm 
+        /// </summary>
+        /// <returns></returns>
         public static void getMST()
         {
-            Data.MSTList = new List<int>[Data.colorsNum];
-            for(int i = 0; i < Data.colorsNum; i++)
+            int vNum = colorsNum;
+            bool[] visited = new bool[vNum];
+            int[] parent = new int[vNum];
+            double[] dist = new double[vNum];
+            for (int i = 0; i < vNum; i++)
             {
-                Data.MSTList[i] = new List<int>();
+                parent[i] = -1;
+                dist[i] = 1e18;
+                visited[i] = false;
             }
-            int v = Data.colorsNum;
-            for (int cur = 0; cur < v; cur++)
+
+
+            SimplePriorityQueue<int> pq = new SimplePriorityQueue<int>();
+            pq.Enqueue(0, 0);
+            dist[0] = 0;
+            while (pq.Count > 0)
             {
-                p[cur] = cur;
-                rnk[cur] = 0;
-            }
-            List < Tuple < double, int, int > > Edge = new List<Tuple<double, int, int>>();
-            for (int i = 0; i < v; i++)
-            {
-                for (int j = 0; j < v; j++)
+                int u = pq.Dequeue();
+                visited[u] = true;
+                for (int i = 0; i < adj[u].Count; i++)
                 {
-                    Edge.Add(Tuple.Create(Data.distances[i,j], i, j));
+                    int child = adj[u][i].Key;
+                    double w = adj[u][i].Value;
+                    if (!visited[child] && w < dist[child])
+                    {
+                        parent[child] = u;
+                        dist[child] = w;
+                        pq.Enqueue(child, (float)w);
+                    }
                 }
             }
-            Edge.Sort();
-            foreach(Tuple<double, int, int> edge in Edge)
+
+            MSTList = new List<int>[vNum];
+            for (int i = 0; i < vNum; i++)
             {
-                if (isConnected(edge.Item2, edge.Item3)) continue;
-                connect(edge.Item2, edge.Item3);
-                Data.MSTList[edge.Item2].Add(edge.Item3);
-                Data.MSTList[edge.Item3].Add(edge.Item3);
+                MSTList[i] = new List<int>();
+            }
+            for (int i = 1; i < vNum; i++)
+            {
+                MSTList[i].Add(parent[i]);
             }
         }
     }

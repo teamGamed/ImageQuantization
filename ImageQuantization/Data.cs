@@ -21,6 +21,8 @@ namespace ImageQuantization
         public static List<List<int>> comps;
         // the mapping color
         public static RGBPixel[] colorMap;
+        // adjacency list 
+        public static List<KeyValuePair<int, double>>[] adj;
 
         public static RGBPixel[,] get(RGBPixel[,] ImageMatrix)
         {
