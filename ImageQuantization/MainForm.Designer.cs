@@ -171,7 +171,6 @@ namespace ImageQuantization
             0,
             0,
             0});
-            this.nudMaskSize.ValueChanged += new System.EventHandler(this.nudMaskSize_ValueChanged);
             // 
             // txtWidth
             // 
@@ -250,7 +249,6 @@ namespace ImageQuantization
             this.label7.Size = new System.Drawing.Size(64, 16);
             this.label7.TabIndex = 18;
             this.label7.Text = "MST sum";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 

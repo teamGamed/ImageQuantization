@@ -35,6 +35,12 @@ namespace ImageQuantization
         public static void CalcDist()
         {
             distances = new double[colorsNum, colorsNum];
+            adj = new List<KeyValuePair<int, double>>[colorsNum];
+            for (int i = 0; i < colorsNum; i++)
+            {
+                adj[i] = new List<KeyValuePair<int, double>>();
+            }
+
             for (int i = 0; i < colorsNum; i++)
             {
                 for (int j = 0; j < colorsNum; j++)
@@ -44,19 +50,8 @@ namespace ImageQuantization
                         distances[i, j] = Math.Sqrt((colors[j].red - colors[i].red) * (colors[j].red - colors[i].red) +
                                                     (colors[j].blue - colors[i].blue) * (colors[j].blue - colors[i].blue) +
                                                     (colors[j].green - colors[i].green) * (colors[j].green - colors[i].green));
+                        adj[i].Add(new KeyValuePair<int, double>(j, distances[i, j]));
                     }
-                }
-            }
-            adj = new List<KeyValuePair<int, double>>[colorsNum];
-            for (int i = 0; i < colorsNum; i++)
-            {
-                adj[i] = new List<KeyValuePair<int, double>>();
-            }
-            for (int i = 0; i < colorsNum; i++)
-            {
-                for (int j = 0; j < colorsNum; j++)
-                {
-                    adj[i].Add(new KeyValuePair<int, double>(j, distances[i, j]));
                 }
             }
         }

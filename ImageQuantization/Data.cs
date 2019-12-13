@@ -22,26 +22,6 @@ namespace ImageQuantization
         // the mapping color
         public static RGBPixel[] colorMap;
         // adjacency list 
-        public static List<KeyValuePair<int, double>>[] adj;
-
-        public static RGBPixel[,] get(RGBPixel[,] ImageMatrix)
-        {
-            for(int i = 0; i < ImageMatrix.GetLength(0); i++)
-            {
-                for(int j = 0; j < ImageMatrix.GetLength(1); j++)
-                {
-                    for(int k = 0; k < Data.colorsNum; k++)
-                    {
-                        if(Data.colors[k].blue == ImageMatrix[i, j].blue && Data.colors[k].green == ImageMatrix[i, j].green &&
-                            Data.colors[k].red == ImageMatrix[i, j].red )
-                        {
-                            ImageMatrix[i, j] = Data.colorMap[k];
-                        }
-                    }
-                }
-            }
-            return ImageMatrix;
-        }
-        
+        public static List<KeyValuePair<int, double>>[] adj;    
     }
 }

@@ -54,15 +54,5 @@ namespace ImageQuantization
             MSTSum.Text = Math.Round(sum, 3).ToString();
             Console.WriteLine(" MSTSUM ::  "+Math.Round(sum , 3));
         }
-
-        private void nudMaskSize_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
