@@ -11,16 +11,16 @@ namespace ImageQuantization
         //find distnict colors in image matrix
         public static void Diffcolors(RGBPixel[,] ImageMatrix)
         {
-            colors = new RGBPixel[ImageMatrix.Length];
             int length = ImageMatrix.GetLength(0);
             int width = ImageMatrix.GetLength(1);
-            int count = 0;
             HashSet<RGBPixel> diffcolors = new HashSet<RGBPixel>();
             for (long i = 0; i < length; i++)
             {
                 for (long j = 0; j < width; j++)
                     diffcolors.Add(ImageMatrix[i, j]);
             }
+            colors = new RGBPixel[diffcolors.Count()];
+            int count = 0;
             foreach (RGBPixel i in diffcolors)
             {
                 colors[count++] = i;
