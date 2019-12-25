@@ -48,9 +48,10 @@ namespace ImageQuantization
                     }
                 }
             }
+            Data.MSTList = new List<int>[V];
             for(int i = 0 ; i < V ; i++)
                 Data.MSTList[i] = new List<int>();
-            for (int i = 0; i < V; i++)
+            for (int i = 1; i < V; i++)
                 Data.MSTList[p[i]].Add(i);
         }
     }

@@ -129,11 +129,10 @@ namespace ImageQuantization
             double sum = 0;
             foreach (var edge in listEdges)
             {
-                if(edge.Item2 == -1)
+                if(edge == null)
                     continue;
                 sum += (edge.Item1 - curMean) * (edge.Item1 - curMean);
             }
-
             sum /= num-1;
             return Math.Sqrt(sum);
         }
@@ -143,7 +142,7 @@ namespace ImageQuantization
             double sum = 0;
             foreach (var edge in listEdges)
             {
-                if(edge.Item2 == -1)
+                if(edge == null)
                     continue;
                 sum += edge.Item1;
             }
@@ -176,22 +175,27 @@ namespace ImageQuantization
         {
             double curMean = mean(num);
             double mx = 0;
+            int m1 = -1;
+            int m2 = -1;
             foreach (var edge in listEdges)
             {
-                if(edge.Item2 == -1)
+                if (edge == null)
                     continue;
-                mx = Math.Max(mx, Math.Abs(curMean - edge.Item1));
+                if (Math.Abs(curMean - edge.Item1) > mx)
+                {
+                    m1 = edge.Item2;
+                    m2 = edge.Item3;
+                }
             }
 
             for (int i = 0; i < listEdges.Count; i++)
             {
                 var edge = listEdges[i];
-                if (edge.Item2 == -1)
+                if (edge == null)
                     continue;
-                if (Math.Abs(Math.Abs(curMean - edge.Item1) - mx) < 0.000000001)
+                if (m1 == edge.Item2 && m2 == edge.Item3)
                 {
-                    listEdges[i] = new Tuple<double, int, int>(listEdges[i].Item1, -1, -1);
-                    break;
+                    listEdges[i] = null;
                 }
             }
         }

@@ -23,5 +23,13 @@ namespace ImageQuantization
         public static RGBPixel[] colorMap;
         // adjacency list 
         public static List<KeyValuePair<int, double>>[] adj;    
+        
+        public static int getDis(int i , int j)
+        {
+            return (colors[j].red - colors[i].red) * (colors[j].red - colors[i].red) +
+                   (colors[j].blue - colors[i].blue) * (colors[j].blue - colors[i].blue) +
+                   (colors[j].green - colors[i].green) * (colors[j].green - colors[i].green);
+        }
     }
+    
 }
