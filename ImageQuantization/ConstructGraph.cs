@@ -14,9 +14,9 @@ namespace ImageQuantization
             int length = ImageMatrix.GetLength(0);
             int width = ImageMatrix.GetLength(1);
             HashSet<RGBPixel> diffcolors = new HashSet<RGBPixel>();
-            for (long i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
-                for (long j = 0; j < width; j++)
+                for (int j = 0; j < width; j++)
                     diffcolors.Add(ImageMatrix[i, j]);
             }
             colors = new RGBPixel[diffcolors.Count()];
