@@ -14,7 +14,6 @@ namespace ImageQuantization
             int length = ImageMatrix.GetLength(0);
             int width = ImageMatrix.GetLength(1);
             bool[,,] vis = new bool[257, 257, 257];
-            
             for (int i = 0; i < length; i++) 
                 for (int j = 0; j < width; j++)
                     vis[ImageMatrix[i, j].blue, ImageMatrix[i, j].green, ImageMatrix[i, j].red] = true;

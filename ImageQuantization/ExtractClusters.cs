@@ -8,10 +8,10 @@ namespace ImageQuantization
 {
     class ExtractClusters
     {
-
         private static bool[] vis;
         private static List<int>[] tree;
         private static List<Tuple<long, int, int>> listEdges;
+        private static double[] cost;
         /// <summary>
         /// get all the edges from Data.MSTList and sort them descending 
         /// </summary>
@@ -125,11 +125,12 @@ namespace ImageQuantization
         {
             double curMean = mean(num);
             double sum = 0;
-            foreach (var edge in listEdges)
+            for (int i = 0;i<listEdges.Count;i++)
             {
+                var edge = listEdges[i];
                 if(edge == null)
                     continue;
-                sum += (edge.Item1 - curMean) * (edge.Item1 - curMean);
+                sum += (cost[i] - curMean) * (cost[i] - curMean);
             }
             sum /= num-1;
             return Math.Sqrt(sum);
@@ -150,6 +151,11 @@ namespace ImageQuantization
         public static int getK()
         {
             getEdges();
+            cost = new double[listEdges.Count];
+            for (int i = 0; i < listEdges.Count; i++)
+            {
+                cost[i] = Math.Sqrt(listEdges[i].Item1);
+            }
             int num = listEdges.Count;
             double beforCut = standardDiv(num);
             removeEdge(num);
@@ -169,17 +175,17 @@ namespace ImageQuantization
             return k;
         }
 
-        private static void removeEdge(int num)
-        {
+        private static void removeEdge(int num) {
             double curMean = mean(num);
             double mx = 0;
             int m1 = -1;
             int m2 = -1;
-            foreach (var edge in listEdges)
+            for (int i = 0;i<listEdges.Count;i++)
             {
+                var edge = listEdges[i];
                 if (edge == null)
                     continue;
-                if (Math.Abs(curMean - edge.Item1) > mx)
+                if (Math.Abs(curMean - cost[i]) > mx)
                 {
                     m1 = edge.Item2;
                     m2 = edge.Item3;

@@ -29,6 +29,7 @@ namespace ImageQuantization
 
         private void btnGaussSmooth_Click(object sender, EventArgs e)
         {
+            Data.clear();
             double sigma = double.Parse(txtGaussSigma.Text);
             int maskSize = (int)nudMaskSize.Value;
             var watch = System.Diagnostics.Stopwatch.StartNew();

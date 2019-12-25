@@ -9,6 +9,17 @@ namespace ImageQuantization
     {
         // --- initialize the data structure before store in it --- 
 
+        public static void clear()
+        {
+            colors = null;
+            distances = null;
+            MSTList = null;
+            comps = null;
+            colorMap = null;
+            adj = null;
+            sum = 0;
+            colorsNum = 0;
+        }
         // count of distinct colors
         public static int colorsNum = 0;
         // distinct colors | the indx will be used as id to the color to the rest in classes 
