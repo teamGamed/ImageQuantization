@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace ImageQuantization
@@ -31,6 +32,11 @@ namespace ImageQuantization
         // parent[] 
         static void printMST(int[] parent)
         {
+            Data.MSTList = new List<int>[Data.colorsNum];
+            for(int i = 0; i < Data.colorsNum; i++)
+            {
+                Data.MSTList[i] = new List<int>();
+            }
             for (int i = 1; i < V; i++)
             {
                 Data.MSTList[parent[i]].Add(i);
@@ -41,7 +47,7 @@ namespace ImageQuantization
         // Function to construct and 
         // print MST for a graph represented 
         // using adjacency matrix representation 
-        static void primMST(double[,] graph)
+        public static void primMST(double[,] graph)
         {
             V = Data.colorsNum;
             // Array to store constructed MST 

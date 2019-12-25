@@ -31,9 +31,12 @@ namespace ImageQuantization
         {
             double sigma = double.Parse(txtGaussSigma.Text);
             int maskSize = (int)nudMaskSize.Value;
+            
             ConstructGraph.Diffcolors(ImageMatrix);
             ConstructGraph.CalcDist();
-            MST.getMST();
+            geeksMST.primMST(Data.distances);
+            //MST.getMST();
+            Ktext.Text = ExtractClusters.getK().ToString();
             ExtractClusters.extractClusters(maskSize);
             ExtractClusters.getClustersColors();
             ImageOperations.DisplayImage(ColorMapping.NewColors(ImageMatrix), pictureBox2);
@@ -51,8 +54,8 @@ namespace ImageQuantization
                     sum += Data.distances[i,Data.MSTList[i][j]];
                 } 
             }
-            MSTSum.Text = Math.Round(sum, 3).ToString();
-            Console.WriteLine(" MSTSUM ::  "+Math.Round(sum , 3));
+            MSTSum.Text = Math.Round(sum/2, 3).ToString();
+            Console.WriteLine(" MSTSUM ::  "+Math.Round(sum/2 , 3));
         }
     }
 }
