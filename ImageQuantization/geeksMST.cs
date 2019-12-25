@@ -10,10 +10,11 @@ namespace ImageQuantization
         // value, from the set of vertices 
         // not yet included in MST 
         static int V = Data.colorsNum;
-        static int minKey(int[] key, bool[] mstSet)
+        static int minKey(double[] key, bool[] mstSet)
         {
             // Initialize min value 
-            int min = int.MaxValue, min_index = -1;
+            double min = double.MaxValue;
+            int min_index = -1;
 
             for (int v = 0; v < V; v++)
                 if (mstSet[v] == false && key[v] < min)
@@ -28,7 +29,7 @@ namespace ImageQuantization
         // A utility function to print 
         // the constructed MST stored in 
         // parent[] 
-        static void printMST(int[] parent, int[,] graph)
+        static void printMST(int[] parent)
         {
             for (int i = 1; i < V; i++)
             {
@@ -40,7 +41,7 @@ namespace ImageQuantization
         // Function to construct and 
         // print MST for a graph represented 
         // using adjacency matrix representation 
-        static void primMST(int[,] graph)
+        static void primMST(double[,] graph)
         {
             V = Data.colorsNum;
             // Array to store constructed MST 
@@ -48,7 +49,7 @@ namespace ImageQuantization
 
             // Key values used to pick 
             // minimum weight edge in cut 
-            int[] key = new int[V];
+            double[] key = new double[V];
 
             // To represent set of vertices 
             // not yet included in MST 
@@ -58,7 +59,7 @@ namespace ImageQuantization
             // as INFINITE 
             for (int i = 0; i < V; i++)
             {
-                key[i] = int.MaxValue;
+                key[i] = double.MaxValue;
                 mstSet[i] = false;
             }
 
@@ -103,7 +104,7 @@ namespace ImageQuantization
             }
 
             // print the constructed MST 
-            printMST(parent, graph);
+            printMST(parent);
         }
     }
 }
