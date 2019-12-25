@@ -33,7 +33,7 @@ namespace ImageQuantization
             int maskSize = (int)nudMaskSize.Value;
             ConstructGraph.Diffcolors(ImageMatrix);
             ConstructGraph.CalcDist();
-            MST.getMST(Data.distances);
+            MST.getMST();
             Ktext.Text = ExtractClusters.getK().ToString();
             ExtractClusters.extractClusters(maskSize);
             ExtractClusters.getClustersColors();
@@ -50,7 +50,7 @@ namespace ImageQuantization
             {
                 for (int j = 0; j < Data.MSTList[i].Count; j++)
                 {
-                    sum += Data.distances[i,Data.MSTList[i][j]];
+                    sum += Data.getDis(i,Data.MSTList[i][j]);
                 } 
             }
             MSTSum.Text = Math.Round(sum, 3).ToString();
