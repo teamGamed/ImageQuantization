@@ -10,15 +10,15 @@ namespace ImageQuantization
     {
         private static bool[] vis;
         private static List<int>[] tree;
-        private static List<Tuple<long, int, int>> listEdges;
-        private static double[] cost;
+        private static List<Tuple<double, int, int>> listEdges;
+        //private static double[] cost;
         /// <summary>
         /// get all the edges from Data.MSTList and sort them descending 
         /// </summary>
         /// <returns></returns>
         private  static void getEdges()
         {
-            var edges = new List<Tuple<long, int, int>>();
+            var edges = new List<Tuple<double, int, int>>();
             var vis = new Dictionary<int , HashSet<int>>();
             for(int i = 0;i< colorsNum; i++)
             {
@@ -34,8 +34,8 @@ namespace ImageQuantization
                         continue;
                     vis[fColor].Add(sColor);
                     vis[sColor].Add(fColor);
-                    long cost = getDis2(fColor, sColor);
-                    var val = new Tuple<long , int , int>(cost , fColor , sColor);
+                    double cost = getDis(fColor , sColor);
+                    var val = new Tuple<double , int , int>(cost , fColor , sColor);
                     edges.Add(val);
                 }
             }
@@ -121,87 +121,87 @@ namespace ImageQuantization
             }
         }
 
-        private static double standardDiv(int num)
+        private static double mean()
         {
-            double curMean = mean(num);
             double sum = 0;
-            for (int i = 0;i<listEdges.Count;i++)
+            int count = 0;
+            for (int i = 0; i < listEdges.Count; i++)
             {
-                var edge = listEdges[i];
-                if(edge == null)
+                if(listEdges[i] == null)
                     continue;
-                sum += (cost[i] - curMean) * (cost[i] - curMean);
+                sum += listEdges[i].Item1;
+                count++;
             }
-            sum /= num-1;
+
+            return sum / count;
+        }
+
+        private static double SD()
+        {
+            double M = mean();
+            double sum = 0;
+            int count = 0;
+            for (int i = 0; i < listEdges.Count; i++)
+            {
+                if(listEdges[i] == null)
+                    continue;
+                sum += (listEdges[i].Item1 - M) * (listEdges[i].Item1 - M);
+                count++;
+            }
+
+            sum /= count;
             return Math.Sqrt(sum);
         }
 
-        private static double mean(int num)
+        private static double remove()
         {
-            double sum = 0;
-            foreach (var edge in listEdges)
+            double M = mean();
+            int m1 = -1;
+            int m2 = -1;
+            double mx = 0;
+            double ans = 0;
+            for (int i = 0; i < listEdges.Count; i++)
             {
-                if(edge == null)
+                if(listEdges[i] == null)
                     continue;
-                sum += edge.Item1;
+                double cur = Math.Abs(M - listEdges[i].Item1);
+                if (cur > mx)
+                {
+                    mx = cur;
+                    ans = cur;
+                    m1 = listEdges[i].Item2;
+                    m2 = listEdges[i].Item3;
+                }
             }
-            return sum / num;
+            for (int i = 0; i < listEdges.Count; i++)
+            {
+                if(listEdges[i] == null)
+                    continue;
+                if (m1 == listEdges[i].Item2 && m2 == listEdges[i].Item3)
+                {
+                    listEdges[i] = null;
+                    break;
+                }
+            }
+
+            return ans;
         }
 
         public static int getK()
         {
             getEdges();
-            cost = new double[listEdges.Count];
-            for (int i = 0; i < listEdges.Count; i++)
-            {
-                cost[i] = Math.Sqrt(listEdges[i].Item1);
-            }
-            int num = listEdges.Count;
-            double beforCut = standardDiv(num);
-            removeEdge(num);
-            double afterCur = standardDiv(--num);
-            double red = Math.Abs(beforCut - afterCur);
-            double lastRed;
+            double r1 = SD();
+            remove();
+            double r2 = SD();
             int k = 1;
-            do
+            while (Math.Abs(r1 - r2) >= 0.0001)
             {
                 k++;
-                beforCut = afterCur;
-                removeEdge(num);
-                afterCur = standardDiv(--num);
-                lastRed = red;
-                red = Math.Abs(beforCut - afterCur);
-            } while (Math.Abs(lastRed - red) >= 0.0001);
+                r1 = r2;
+                remove();
+                r2 = SD();
+            }
             return k;
-        }
-
-        private static void removeEdge(int num) {
-            double curMean = mean(num);
-            double mx = 0;
-            int m1 = -1;
-            int m2 = -1;
-            for (int i = 0;i<listEdges.Count;i++)
-            {
-                var edge = listEdges[i];
-                if (edge == null)
-                    continue;
-                if (Math.Abs(curMean - cost[i]) > mx)
-                {
-                    m1 = edge.Item2;
-                    m2 = edge.Item3;
-                }
-            }
-
-            for (int i = 0; i < listEdges.Count; i++)
-            {
-                var edge = listEdges[i];
-                if (edge == null)
-                    continue;
-                if (m1 == edge.Item2 && m2 == edge.Item3)
-                {
-                    listEdges[i] = null;
-                }
-            }
         }
     }
 }

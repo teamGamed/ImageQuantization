@@ -48,8 +48,10 @@ namespace ImageQuantization
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtDiffColors = new System.Windows.Forms.TextBox();
-            this.Ktext = new System.Windows.Forms.TextBox();
             this.timeTxt = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.TimeM = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.nudMaskSize)).BeginInit();
@@ -233,9 +235,9 @@ namespace ImageQuantization
             // 
             this.MSTSum.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold,
                 System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.MSTSum.Location = new System.Drawing.Point(969, 494);
+            this.MSTSum.Location = new System.Drawing.Point(918, 494);
             this.MSTSum.Name = "MSTSum";
-            this.MSTSum.Size = new System.Drawing.Size(66, 23);
+            this.MSTSum.Size = new System.Drawing.Size(117, 23);
             this.MSTSum.TabIndex = 17;
             this.MSTSum.Text = "1";
             // 
@@ -244,11 +246,12 @@ namespace ImageQuantization
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold,
                 System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label7.Location = new System.Drawing.Point(966, 472);
+            this.label7.Location = new System.Drawing.Point(918, 475);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 16);
             this.label7.TabIndex = 18;
             this.label7.Text = "MST sum";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 
@@ -265,17 +268,10 @@ namespace ImageQuantization
             // 
             this.txtDiffColors.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold,
                 System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.txtDiffColors.Location = new System.Drawing.Point(969, 543);
+            this.txtDiffColors.Location = new System.Drawing.Point(918, 543);
             this.txtDiffColors.Name = "txtDiffColors";
-            this.txtDiffColors.Size = new System.Drawing.Size(66, 22);
+            this.txtDiffColors.Size = new System.Drawing.Size(117, 22);
             this.txtDiffColors.TabIndex = 22;
-            // 
-            // Ktext
-            // 
-            this.Ktext.Location = new System.Drawing.Point(101, 539);
-            this.Ktext.Name = "Ktext";
-            this.Ktext.Size = new System.Drawing.Size(123, 23);
-            this.Ktext.TabIndex = 23;
             // 
             // timeTxt
             // 
@@ -284,13 +280,39 @@ namespace ImageQuantization
             this.timeTxt.Size = new System.Drawing.Size(123, 23);
             this.timeTxt.TabIndex = 24;
             // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(101, 476);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(75, 18);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Time sec";
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(101, 522);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(93, 16);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Time M";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
+            // TimeM
+            // 
+            this.TimeM.Location = new System.Drawing.Point(101, 541);
+            this.TimeM.Name = "TimeM";
+            this.TimeM.Size = new System.Drawing.Size(123, 23);
+            this.TimeM.TabIndex = 27;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 577);
+            this.Controls.Add(this.TimeM);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.timeTxt);
-            this.Controls.Add(this.Ktext);
             this.Controls.Add(this.txtDiffColors);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -344,8 +366,10 @@ namespace ImageQuantization
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtDiffColors;
-        private System.Windows.Forms.TextBox Ktext;
         private System.Windows.Forms.TextBox timeTxt;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox TimeM;
     }
 }
 

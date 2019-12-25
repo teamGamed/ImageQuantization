@@ -12,6 +12,7 @@ namespace ImageQuantization
 
         public static void main()
         {
+            
         }
     }
 }

@@ -43,6 +43,11 @@ namespace ImageQuantization
                    (colors[j].blue - colors[i].blue) * (colors[j].blue - colors[i].blue) +
                    (colors[j].green - colors[i].green) * (colors[j].green - colors[i].green);
         }
+
+        public static double getDis(int i , int j)
+        {
+            return Math.Sqrt(getDis2(i, j));
+        }
     }
-    
+
 }

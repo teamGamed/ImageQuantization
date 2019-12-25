@@ -35,7 +35,8 @@ namespace ImageQuantization
             var watch = System.Diagnostics.Stopwatch.StartNew();
             ConstructGraph.Diffcolors(ImageMatrix);
             MST.getMST();
-            Ktext.Text = ExtractClusters.getK().ToString();
+            //ConstructGraph.CalcDist();
+            txtGaussSigma.Text = ExtractClusters.getK().ToString();
             ExtractClusters.extractClusters(maskSize);
             ExtractClusters.getClustersColors();
             // outPut
@@ -43,8 +44,23 @@ namespace ImageQuantization
             var elapsedMs = watch.ElapsedMilliseconds;
             timeTxt.Text = elapsedMs.ToString();
             MSTSum.Text = Math.Round(Data.sum, 3).ToString();
+            TimeM.Text = ((double)elapsedMs/(60*1000)).ToString();
             txtDiffColors.Text = Data.colorsNum.ToString();
             ImageOperations.DisplayImage(ColorMapping.NewColors(ImageMatrix), pictureBox2);
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
