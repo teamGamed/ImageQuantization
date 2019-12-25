@@ -11,23 +11,29 @@ namespace ImageQuantization
 
         private static bool[] vis;
         private static List<int>[] tree;
+        private static List<Tuple<double, int, int>> listEdges;
         /// <summary>
         /// get all the edges from Data.MSTList and sort them descending 
         /// </summary>
         /// <returns></returns>
-        private  static List<Tuple<double , int , int>> getEdges()
+        private  static void getEdges()
         {
             var edges = new List<Tuple<double, int, int>>();
-            var vis = new bool[colorsNum, colorsNum];
+            var vis = new Dictionary<int , HashSet<int>>();
+            for(int i = 0;i< colorsNum; i++)
+            {
+                vis.Add( i , new HashSet<int>() );
+            }
             for (int i = 0; i < colorsNum; i++)
             {
                 for (int j = 0; j < MSTList[i].Count; j++)
                 {
                     int fColor = i;
                     int sColor = MSTList[i][j];
-                    if (vis[fColor, sColor])
+                    if (vis[fColor].Contains(sColor))
                         continue;
-                    vis[fColor, sColor] = vis[sColor, fColor] = true;
+                    vis[fColor].Add(sColor);
+                    vis[sColor].Add(fColor);
                     double cost = distances[fColor, sColor];
                     var val = new Tuple<double , int , int>(cost , fColor , sColor);
                     edges.Add(val);
@@ -35,7 +41,7 @@ namespace ImageQuantization
             }
             edges.Sort();
             edges.Reverse();
-            return edges;
+            listEdges = edges;
         }
         /// <summary>
         /// get the tree after separates it to $compNum component
@@ -44,17 +50,17 @@ namespace ImageQuantization
         /// <returns></returns>
         private static List<int>[] getupdatedTree(int compNum)
         {
-            var edges = getEdges();
-            int removedEdges = Math.Min(compNum - 1, edges.Count);
+            getEdges();
+            int removedEdges = Math.Min(compNum - 1, listEdges.Count);
             List<int>[] updatedTree = new List<int>[colorsNum];
             for(int i = 0; i < colorsNum; i++)
             {
                 updatedTree[i] = new List<int>();
             }
-            for (int i = removedEdges; i < edges.Count; i++)
+            for (int i = removedEdges; i < listEdges.Count; i++)
             {
-                int fColor = edges[i].Item2;
-                int sColor = edges[i].Item3;
+                int fColor = listEdges[i].Item2;
+                int sColor = listEdges[i].Item3;
                 updatedTree[fColor].Add(sColor);
                 updatedTree[sColor].Add(fColor);
             }
@@ -113,6 +119,79 @@ namespace ImageQuantization
                 for (int j = 0; j < comps[i].Count; j++)
                 {
                     colorMap[comps[i][j]] = newColor;
+                }
+            }
+        }
+
+        private static double standardDiv(int num)
+        {
+            double curMean = mean(num);
+            double sum = 0;
+            foreach (var edge in listEdges)
+            {
+                if(edge.Item2 == -1)
+                    continue;
+                sum += (edge.Item1 - curMean) * (edge.Item1 - curMean);
+            }
+
+            sum /= num-1;
+            return Math.Sqrt(sum);
+        }
+
+        private static double mean(int num)
+        {
+            double sum = 0;
+            foreach (var edge in listEdges)
+            {
+                if(edge.Item2 == -1)
+                    continue;
+                sum += edge.Item1;
+            }
+            return sum / num;
+        }
+
+        public static int getK()
+        {
+            getEdges();
+            int num = listEdges.Count;
+            double beforCut = standardDiv(num);
+            removeEdge(num);
+            double afterCur = standardDiv(--num);
+            double red = Math.Abs(beforCut - afterCur);
+            double lastRed;
+            int k = 1;
+            do
+            {
+                k++;
+                beforCut = afterCur;
+                removeEdge(num);
+                afterCur = standardDiv(--num);
+                lastRed = red;
+                red = Math.Abs(beforCut - afterCur);
+            } while (Math.Abs(lastRed - red) >= 0.0001);
+            return k;
+        }
+
+        private static void removeEdge(int num)
+        {
+            double curMean = mean(num);
+            double mx = 0;
+            foreach (var edge in listEdges)
+            {
+                if(edge.Item2 == -1)
+                    continue;
+                mx = Math.Max(mx, Math.Abs(curMean - edge.Item1));
+            }
+
+            for (int i = 0; i < listEdges.Count; i++)
+            {
+                var edge = listEdges[i];
+                if (edge.Item2 == -1)
+                    continue;
+                if (Math.Abs(Math.Abs(curMean - edge.Item1) - mx) < 0.000000001)
+                {
+                    listEdges[i] = new Tuple<double, int, int>(listEdges[i].Item1, -1, -1);
+                    break;
                 }
             }
         }
