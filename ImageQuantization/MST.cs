@@ -6,9 +6,9 @@ namespace ImageQuantization
     public class MST
     {
         private static int V = 0;
-        static int getSmallestNode(double[] cost, bool[] visited)
+        static int getSmallestNode(long [] cost, bool[] visited)
         {
-            double mn = double.MaxValue;
+            long mn = 1000000000;
             int idx = -1;
             for (int i = 0; i < V; i++)
             {
@@ -20,16 +20,16 @@ namespace ImageQuantization
             }
             return idx;
         }
-        public static void getMST(double[,] g)
+        public static void getMST()
         {
             V = Data.colorsNum;
             int[] p = new int[V];
-            double[] cost = new double[V];
+            long[] cost = new long[V];
             bool[] visited = new bool[V];
             for (int i = 0; i < V; i++)
             {
                 visited[i] = false;
-                cost[i] = double.MaxValue;
+                cost[i] = 1000000000;
             }
 
             p[0] = -1;
@@ -41,10 +41,10 @@ namespace ImageQuantization
                 for (int node = 0; node < V; node++)
                 {
                     if (visited[node] == true) continue;
-                    if (g[smallest, node] < cost[node])
+                    if (Data.getDis(smallest, node) < cost[node])
                     {
                         p[node] = smallest;
-                        cost[node] = g[smallest, node];
+                        cost[node] = Data.getDis(smallest, node);
                     }
                 }
             }
