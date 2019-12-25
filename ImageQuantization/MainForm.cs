@@ -34,8 +34,7 @@ namespace ImageQuantization
             
             ConstructGraph.Diffcolors(ImageMatrix);
             ConstructGraph.CalcDist();
-            geeksMST.primMST(Data.distances);
-            //MST.getMST();
+            MST.getMST(Data.distances);
             Ktext.Text = ExtractClusters.getK().ToString();
             ExtractClusters.extractClusters(maskSize);
             ExtractClusters.getClustersColors();
