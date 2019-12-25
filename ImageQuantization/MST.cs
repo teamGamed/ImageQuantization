@@ -41,10 +41,10 @@ namespace ImageQuantization
                 for (int node = 0; node < V; node++)
                 {
                     if (visited[node] == true) continue;
-                    if (Data.getDis(smallest, node) < cost[node])
+                    if (Data.getDis2(smallest, node) < cost[node])
                     {
                         p[node] = smallest;
-                        cost[node] = Data.getDis(smallest, node);
+                        cost[node] = Data.getDis2(smallest, node);
                     }
                 }
             }
@@ -52,7 +52,10 @@ namespace ImageQuantization
             for(int i = 0 ; i < V ; i++)
                 Data.MSTList[i] = new List<int>();
             for (int i = 1; i < V; i++)
+            {
                 Data.MSTList[p[i]].Add(i);
+                Data.sum += System.Math.Sqrt(Data.getDis2(p[i], i));
+            }
         }
     }
 }

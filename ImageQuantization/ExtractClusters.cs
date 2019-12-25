@@ -11,14 +11,14 @@ namespace ImageQuantization
 
         private static bool[] vis;
         private static List<int>[] tree;
-        private static List<Tuple<double, int, int>> listEdges;
+        private static List<Tuple<long, int, int>> listEdges;
         /// <summary>
         /// get all the edges from Data.MSTList and sort them descending 
         /// </summary>
         /// <returns></returns>
         private  static void getEdges()
         {
-            var edges = new List<Tuple<double, int, int>>();
+            var edges = new List<Tuple<long, int, int>>();
             var vis = new Dictionary<int , HashSet<int>>();
             for(int i = 0;i< colorsNum; i++)
             {
@@ -34,8 +34,8 @@ namespace ImageQuantization
                         continue;
                     vis[fColor].Add(sColor);
                     vis[sColor].Add(fColor);
-                    double cost = getDis(fColor, sColor);
-                    var val = new Tuple<double , int , int>(cost , fColor , sColor);
+                    long cost = getDis2(fColor, sColor);
+                    var val = new Tuple<long , int , int>(cost , fColor , sColor);
                     edges.Add(val);
                 }
             }
@@ -70,10 +70,8 @@ namespace ImageQuantization
         {
             vis[node] = true;
             curComp.Add(node);
-            foreach (var newNode in tree[node])
-            {
-                if (!vis[newNode])
-                {
+            foreach (var newNode in tree[node]) {
+                if (!vis[newNode]) {
                     dfs(newNode , ref curComp);
                 }
             }

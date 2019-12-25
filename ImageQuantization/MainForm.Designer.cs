@@ -49,6 +49,7 @@ namespace ImageQuantization
             this.label8 = new System.Windows.Forms.Label();
             this.txtDiffColors = new System.Windows.Forms.TextBox();
             this.Ktext = new System.Windows.Forms.TextBox();
+            this.timeTxt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.nudMaskSize)).BeginInit();
@@ -273,14 +274,22 @@ namespace ImageQuantization
             // 
             this.Ktext.Location = new System.Drawing.Point(101, 539);
             this.Ktext.Name = "Ktext";
-            this.Ktext.Size = new System.Drawing.Size(118, 23);
+            this.Ktext.Size = new System.Drawing.Size(123, 23);
             this.Ktext.TabIndex = 23;
+            // 
+            // timeTxt
+            // 
+            this.timeTxt.Location = new System.Drawing.Point(101, 497);
+            this.timeTxt.Name = "timeTxt";
+            this.timeTxt.Size = new System.Drawing.Size(123, 23);
+            this.timeTxt.TabIndex = 24;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 577);
+            this.Controls.Add(this.timeTxt);
             this.Controls.Add(this.Ktext);
             this.Controls.Add(this.txtDiffColors);
             this.Controls.Add(this.label8);
@@ -336,6 +345,7 @@ namespace ImageQuantization
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtDiffColors;
         private System.Windows.Forms.TextBox Ktext;
+        private System.Windows.Forms.TextBox timeTxt;
     }
 }
 

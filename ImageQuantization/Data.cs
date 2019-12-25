@@ -10,7 +10,7 @@ namespace ImageQuantization
         // --- initialize the data structure before store in it --- 
 
         // count of distinct colors
-        public static int colorsNum;
+        public static int colorsNum = 0;
         // distinct colors | the indx will be used as id to the color to the rest in classes 
         public static RGBPixel[] colors;
         // the graph
@@ -22,9 +22,11 @@ namespace ImageQuantization
         // the mapping color
         public static RGBPixel[] colorMap;
         // adjacency list 
-        public static List<KeyValuePair<int, double>>[] adj;    
+        public static List<KeyValuePair<int, double>>[] adj;
+
+        public static double sum = 0;
         
-        public static int getDis(int i , int j)
+        public static int getDis2(int i , int j)
         {
             return (colors[j].red - colors[i].red) * (colors[j].red - colors[i].red) +
                    (colors[j].blue - colors[i].blue) * (colors[j].blue - colors[i].blue) +

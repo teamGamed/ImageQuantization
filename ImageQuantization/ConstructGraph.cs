@@ -13,19 +13,36 @@ namespace ImageQuantization
         {
             int length = ImageMatrix.GetLength(0);
             int width = ImageMatrix.GetLength(1);
-            HashSet<RGBPixel> diffcolors = new HashSet<RGBPixel>();
-            for (int i = 0; i < length; i++)
-            {
+            bool[,,] vis = new bool[257, 257, 257];
+            
+            for (int i = 0; i < length; i++) 
                 for (int j = 0; j < width; j++)
-                    diffcolors.Add(ImageMatrix[i, j]);
-            }
-            colors = new RGBPixel[diffcolors.Count()];
+                    vis[ImageMatrix[i, j].blue, ImageMatrix[i, j].green, ImageMatrix[i, j].red] = true;
+            
+            for(int i = 0; i < 256; i++) 
+                for (int j = 0; j < 256; j++) 
+                    for (int k = 0; k < 256; k++) 
+                        if (vis[i, j, k])
+                            colorsNum++;
+            
+            
+            colors = new RGBPixel[colorsNum];
             int count = 0;
-            foreach (RGBPixel i in diffcolors)
-            {
-                colors[count++] = i;
-            }
-            colorsNum=diffcolors.Count();
+            
+            for(int i = 0; i < 256; i++) 
+                for (int j = 0; j < 256; j++) 
+                    for (int k = 0; k < 256; k++) 
+                        if (vis[i, j, k]) {
+                            var p = new RGBPixel();
+                            p.blue = (byte)i;
+                            p.green = (byte)j;
+                            p.red = (byte)k;
+                            colors[count++] = p;
+                        }
+                            
+                    
+                
+            
         }
         /// <summary>
         /// Calculate distance(edge weight) between the RGB values of the 2 vertices using the Euclidean Distance, then construct

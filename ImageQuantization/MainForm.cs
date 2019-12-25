@@ -31,30 +31,19 @@ namespace ImageQuantization
         {
             double sigma = double.Parse(txtGaussSigma.Text);
             int maskSize = (int)nudMaskSize.Value;
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             ConstructGraph.Diffcolors(ImageMatrix);
-            ConstructGraph.CalcDist();
             MST.getMST();
             Ktext.Text = ExtractClusters.getK().ToString();
             ExtractClusters.extractClusters(maskSize);
             ExtractClusters.getClustersColors();
-            ImageOperations.DisplayImage(ColorMapping.NewColors(ImageMatrix), pictureBox2);
-
+            // outPut
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            timeTxt.Text = elapsedMs.ToString();
+            MSTSum.Text = Math.Round(Data.sum, 3).ToString();
             txtDiffColors.Text = Data.colorsNum.ToString();
-            printOutput();
-        }
-        private void printOutput()
-        {
-            Console.WriteLine(" Case ::  " + testName);
-            double sum = 0;
-            for(int i = 0; i < Data.MSTList.Length; i++)
-            {
-                for (int j = 0; j < Data.MSTList[i].Count; j++)
-                {
-                    sum += Data.getDis(i,Data.MSTList[i][j]);
-                } 
-            }
-            MSTSum.Text = Math.Round(sum, 3).ToString();
-            Console.WriteLine(" MSTSUM ::  "+Math.Round(sum , 3));
+            ImageOperations.DisplayImage(ColorMapping.NewColors(ImageMatrix), pictureBox2);
         }
     }
 }
