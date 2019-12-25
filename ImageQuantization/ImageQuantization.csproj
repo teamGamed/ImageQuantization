@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ColorMapping.cs" />
     <Compile Include="ConstructGraph.cs" />
+    <Compile Include="geeksMST.cs" />
     <Compile Include="MST.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="ExtractClusters.cs" />

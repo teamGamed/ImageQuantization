@@ -52,10 +52,12 @@ namespace ImageQuantization
             {
                 MSTList[i] = new List<int>();
             }
+
             for (int i = 1; i < vNum; i++)
             {
                 MSTList[i].Add(parent[i]);
             }
+            
         }
     }
 }
