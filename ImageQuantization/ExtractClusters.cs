@@ -34,7 +34,7 @@ namespace ImageQuantization
                         continue;
                     vis[fColor].Add(sColor);
                     vis[sColor].Add(fColor);
-                    double cost = distances[fColor, sColor];
+                    double cost = getDis(fColor, sColor);
                     var val = new Tuple<double , int , int>(cost , fColor , sColor);
                     edges.Add(val);
                 }
