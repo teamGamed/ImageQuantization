@@ -43,10 +43,10 @@ namespace ImageQuantization
             ExtractClusters.getClustersColors();
             // outPut
             watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            timeTxt.Text = elapsedMs.ToString();
+            long elapsedMs = watch.ElapsedMilliseconds;
+            timeTxt.Text = (elapsedMs / 1000).ToString();
             MSTSum.Text = Math.Round(Data.sum, 3).ToString();
-            TimeM.Text = ((double)elapsedMs/(60*1000)).ToString();
+            TimeM.Text = (elapsedMs % 1000).ToString();
             txtDiffColors.Text = Data.colorsNum.ToString();
             ImageOperations.DisplayImage(ColorMapping.NewColors(ImageMatrix), pictureBox2);
         }
@@ -54,10 +54,6 @@ namespace ImageQuantization
         private void label7_Click(object sender, EventArgs e)
         {
             
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
         }
 
         private void label10_Click(object sender, EventArgs e)
