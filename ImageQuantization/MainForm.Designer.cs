@@ -282,7 +282,7 @@ namespace ImageQuantization
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(101, 476);
+            this.label9.Location = new System.Drawing.Point(101, 477);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 18);
             this.label9.TabIndex = 25;
@@ -308,7 +308,7 @@ namespace ImageQuantization
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 577);
+            this.ClientSize = new System.Drawing.Size(1093, 600);
             this.Controls.Add(this.TimeM);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
