@@ -244,6 +244,7 @@ namespace ImageQuantization
                 arr[i] = listEdges[i].Item1;
             }
             int pt1 = 0, pt2 = listEdges.Count - 1;
+            int n = listEdges.Count;
             int k = 0;
             bool f = true;
             while (pt1 < pt2)
@@ -285,7 +286,7 @@ namespace ImageQuantization
                 newSD /= (pt2 - pt1 + 1);
                 newSD = Math.Sqrt(newSD);
 
-                if (Math.Abs(oldSD - newSD) < 0.0001)
+                if (Math.Abs(oldSD - newSD) < 0.0001 && (pt2 - pt1 + 1) <= 2*n/3.0 )
                 {
                     break;
                 }
